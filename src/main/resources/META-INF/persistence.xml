@@ -1,0 +1,46 @@
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="cs545" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <jta-data-source>jdbc/__default</jta-data-source>
+
+        <class>cs545.airline.model.Airline</class>
+        <class>cs545.airline.model.Airplane</class>
+        <class>cs545.airline.model.Airport</class>
+        <class>cs545.airline.model.Flight</class>
+
+
+        <properties>
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/waatest;create=true"
+                /> -->
+
+            <property name="eclipselink.target-database"
+                      value="org.eclipse.persistence.platform.database.DerbyPlatform" />
+            <property name="eclipselink.target-database" value="Auto" />
+
+            <!-- ****** ddl-generation options ****** -->
+            <!-- ****** values ["create-tables", "create-or-extend-tables", "drop-and-create-tables", "none"] -->
+            <!-- The ddl-generation will create the tables on the database based on the annotations in the model -->
+            <!-- to prepare the database for your application use any of the create mode -->
+            <!-- then set the value to "none" to avoid SQL errors when starting up the application  -->
+
+            <property name="eclipselink.ddl-generation" value="none" />
+            <property name="eclipselink.ddl-generation.output-mode" value="database" />
+
+            <property name="eclipselink.logging.level" value="ALL" />
+            <property name="eclipselink.logging.level.sql" value="FINE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.connection" value="false" />
+            <property name="eclipselink.logging.session" value="false" />
+            <property name="eclipselink.logging.thread" value="true" />
+            <property name="eclipselink.logging.timestamp" value="false" />
+        </properties>
+
+    </persistence-unit>
+</persistence>
+
+
