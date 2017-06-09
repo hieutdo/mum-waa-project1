@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
 
 @Named
@@ -39,5 +40,11 @@ public class AirlineRest {
         }
         airlineService.delete(airline);
         return Response.ok().entity(airline).build();
+    }
+
+    @POST
+    public Response createAirline(Airline airline) {
+        airlineService.create(airline);
+        return Response.created(URI.create("airlines/" + airline.getId())).entity(airline).build();
     }
 }
