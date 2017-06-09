@@ -5,6 +5,7 @@ import cs545.airline.service.AirlineService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -44,7 +45,22 @@ public class AirlineRest {
 
     @POST
     public Response createAirline(Airline airline) {
-        airlineService.create(airline);
-        return Response.created(URI.create("airlines/" + airline.getId())).entity(airline).build();
+        try {
+            airlineService.findByName(airline.getName());
+            throw new BadRequestException("The airline with name " + airline.getName() + " already exists.");
+        } catch (NoResultException e) {
+            // only create new entity when it does not exist
+            airlineService.create(airline);
+            return Response.created(URI.create("airlines/" + airline.getId())).entity(airline).build();
+        }
+    }
+
+    @PUT
+    public Response updateAirline(Airline airline) {
+        if (airlineService.findById(airline.getId()) == null) {
+            throw new BadRequestException("The airline with id " + airline.getId() + " does not exist.");
+        }
+        airlineService.update(airline);
+        return Response.ok().entity(airline).build();
     }
 }
