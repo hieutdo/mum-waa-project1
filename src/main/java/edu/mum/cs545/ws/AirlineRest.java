@@ -7,12 +7,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
 
 @Named
 @Path("airlines")
+@Produces({MediaType.APPLICATION_JSON})
 public class AirlineRest {
     @Inject
     private AirlineService airlineService;
@@ -44,6 +46,7 @@ public class AirlineRest {
     }
 
     @POST
+    @Consumes({MediaType.APPLICATION_JSON})
     public Response createAirline(Airline airline) {
         try {
             airlineService.findByName(airline.getName());
@@ -56,6 +59,7 @@ public class AirlineRest {
     }
 
     @PUT
+    @Consumes({MediaType.APPLICATION_JSON})
     public Response updateAirline(Airline airline) {
         if (airlineService.findById(airline.getId()) == null) {
             throw new BadRequestException("The airline with id " + airline.getId() + " does not exist.");

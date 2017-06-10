@@ -1,0 +1,288 @@
+= airlinesWebApp
+
+
+[[_overview]]
+== Overview
+
+=== Version information
+[%hardbreaks]
+__Version__ : 0.0.1-SNAPSHOT
+
+
+=== URI scheme
+[%hardbreaks]
+__Host__ : edu.mum.cs545
+__BasePath__ : /rs
+__Schemes__ : HTTP, HTTPS
+
+
+=== Tags
+
+* airline
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_airlines_post]]
+=== POST /airlines
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__required__|<<_airline,Airline>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Created +
+**Headers** :  +
+`Location` (string)|<<_airline,Airline>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airlines_get]]
+=== GET /airlines
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|< <<_airline,Airline>> > array
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airlines_put]]
+=== PUT /airlines
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__required__|<<_airline,Airline>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airline,Airline>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airlines_airlineid_get]]
+=== GET /airlines/{airlineId}
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Path**|**airlineId** +
+__required__|integer
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airline,Airline>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airlines_airlineid_delete]]
+=== DELETE /airlines/{airlineId}
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Path**|**airlineId** +
+__required__|integer
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airline,Airline>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_hello_get]]
+=== GET /hello
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4,.^2"]
+|===
+|Type|Name|Schema|Default
+|**Query**|**name** +
+__optional__|string|`"Gorgeous"`
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|===
+
+
+[[_hello_airline_get]]
+=== GET /hello/airline
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|===
+
+
+==== Tags
+
+* airline
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_airline]]
+=== Airline
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**flights** +
+__optional__|< <<_flight,Flight>> > array
+|**id** +
+__optional__|integer
+|**name** +
+__optional__|string
+|===
+
+
+[[_airplane]]
+=== Airplane
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**capacity** +
+__optional__|integer
+|**flights** +
+__optional__|< <<_flight,Flight>> > array
+|**id** +
+__optional__|integer
+|**model** +
+__optional__|string
+|**serialnr** +
+__optional__|string
+|===
+
+
+[[_airport]]
+=== Airport
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**airportcode** +
+__optional__|string
+|**arrivals** +
+__optional__|< <<_flight,Flight>> > array
+|**city** +
+__optional__|string
+|**country** +
+__optional__|string
+|**departures** +
+__optional__|< <<_flight,Flight>> > array
+|**id** +
+__optional__|integer
+|**name** +
+__optional__|string
+|===
+
+
+[[_flight]]
+=== Flight
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**airline** +
+__optional__|<<_airline,Airline>>
+|**airplane** +
+__optional__|<<_airplane,Airplane>>
+|**arrivalDate** +
+__optional__|string
+|**arrivalTime** +
+__optional__|string
+|**departureDate** +
+__optional__|string
+|**departureTime** +
+__optional__|string
+|**destination** +
+__optional__|<<_airport,Airport>>
+|**flightnr** +
+__optional__|string
+|**id** +
+__optional__|integer
+|**origin** +
+__optional__|<<_airport,Airport>>
+|===
+
+
+
+
+
