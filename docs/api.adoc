@@ -300,6 +300,143 @@ __required__|integer
 * `application/json`
 
 
+[[_airports_post]]
+=== POST /airports
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__required__|<<_airport,Airport>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Created +
+**Headers** :  +
+`Location` (string)|<<_airport,Airport>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airports_get]]
+=== GET /airports
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|< <<_airport,Airport>> > array
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airports_put]]
+=== PUT /airports
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__required__|<<_airport,Airport>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airport,Airport>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airports_airportid_get]]
+=== GET /airports/{airportId}
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Path**|**airportId** +
+__required__|integer
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airport,Airport>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airports_airportid_delete]]
+=== DELETE /airports/{airportId}
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Path**|**airportId** +
+__required__|integer
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airport,Airport>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
 [[_hello_get]]
 === GET /hello
 

@@ -33,8 +33,8 @@ public class AirportService {
         return airportDao.update(airport);
     }
 
-    public Airport find(Airport airport) {
-        return airportDao.findOne(airport.getId());
+    public Airport findById(long id) {
+        return airportDao.findOne(id);
     }
 
     public Airport findByCode(String airportcode) {
