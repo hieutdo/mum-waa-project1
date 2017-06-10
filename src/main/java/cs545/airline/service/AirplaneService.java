@@ -33,8 +33,8 @@ public class AirplaneService {
         return airplaneDao.update(airplane);
     }
 
-    public Airplane find(Airplane airplane) {
-        return airplaneDao.findOne(airplane.getId());
+    public Airplane findById(long id) {
+        return airplaneDao.findOne(id);
     }
 
     public Airplane findBySrlnr(String serialno) {

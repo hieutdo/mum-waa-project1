@@ -13,7 +13,7 @@ __Version__ : 0.0.1-SNAPSHOT
 [%hardbreaks]
 __Host__ : edu.mum.cs545
 __BasePath__ : /rs
-__Schemes__ : HTTP, HTTPS
+__Schemes__ : HTTP
 
 
 === Tags
@@ -48,6 +48,11 @@ __required__|<<_airline,Airline>>
 **Headers** :  +
 `Location` (string)|<<_airline,Airline>>
 |===
+
+
+==== Consumes
+
+* `application/json`
 
 
 ==== Produces
@@ -92,6 +97,11 @@ __required__|<<_airline,Airline>>
 |HTTP Code|Description|Schema
 |**200**|OK|<<_airline,Airline>>
 |===
+
+
+==== Consumes
+
+* `application/json`
 
 
 ==== Produces
@@ -145,6 +155,143 @@ __required__|integer
 |===
 |HTTP Code|Description|Schema
 |**200**|OK|<<_airline,Airline>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airplanes_post]]
+=== POST /airplanes
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__required__|<<_airplane,Airplane>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Created +
+**Headers** :  +
+`Location` (string)|<<_airplane,Airplane>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airplanes_get]]
+=== GET /airplanes
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|< <<_airplane,Airplane>> > array
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airplanes_put]]
+=== PUT /airplanes
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Body**|**body** +
+__required__|<<_airplane,Airplane>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airplane,Airplane>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airplanes_airplaneid_get]]
+=== GET /airplanes/{airplaneId}
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Path**|**airplaneId** +
+__required__|integer
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airplane,Airplane>>
+|===
+
+
+==== Produces
+
+* `application/json`
+
+
+[[_airplanes_airplaneid_delete]]
+=== DELETE /airplanes/{airplaneId}
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^4"]
+|===
+|Type|Name|Schema
+|**Path**|**airplaneId** +
+__required__|integer
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_airplane,Airplane>>
 |===
 
 
