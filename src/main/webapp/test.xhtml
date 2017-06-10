@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+	<title>Test</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="1">
+			<h1>Test</h1>
+			<h:commandButton action="#{testAirlineService.runAll}"
+				value="Test Airline Service" />
+			<h:commandButton action="#{testAirplaneService.runAll}"
+				value="Test Airplane Service" />
+			<h:commandButton action="#{testAirportService.runAll}"
+				value="Test Airport Service" />
+			<h:commandButton action="#{testFlightService.runAll}"
+				value="Test Flight Service" />
+			<br />
+
+			#{testAirlineService.messages}
+			#{testAirplaneService.messages}
+			#{testAirportService.messages}
+			#{testFlightService.messages}
+
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

@@ -8,7 +8,6 @@ import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.util.List;
 
 @Named
@@ -31,24 +30,6 @@ public class FlightRest {
             throw new NotFoundException(String.format("The flight you requested with id %s was not found in the database.", flightId));
         }
         return Response.ok().entity(flight).build();
-    }
-
-    @DELETE
-    @Path("{flightId}")
-    public Response deleteFlightById(@PathParam("flightId") long flightId) {
-        Flight flight = flightService.findById(flightId);
-        if (flight == null) {
-            throw new NotFoundException(String.format("The flight you requested with id %s was not found in the database.", flightId));
-        }
-        flightService.delete(flight);
-        return Response.ok().entity(flight).build();
-    }
-
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    public Response createFlight(Flight flight) {
-        flightService.create(flight);
-        return Response.created(URI.create("flights/" + flight.getId())).entity(flight).build();
     }
 
     @PUT

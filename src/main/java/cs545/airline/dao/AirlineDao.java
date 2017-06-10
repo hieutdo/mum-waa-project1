@@ -13,11 +13,10 @@ import java.util.List;
 @ApplicationScoped
 public class AirlineDao {
 
-    //	@PersistenceContext(unitName = "cs545")
-//	private static EntityManager entityManager;
-//  Couldn't figure out another way to inject the persistence context
+    // @PersistenceContext(unitName = "cs545")
+    // private static EntityManager entityManager;
+    // Couldn't figure out another way to inject the persistence context
     private EntityManager entityManager = JpaUtil.getEntityManager();
-
 
     public void create(Airline airline) {
         entityManager.getTransaction().begin();
@@ -30,9 +29,12 @@ public class AirlineDao {
     }
 
     public void delete(Airline airline) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(airline);
-        entityManager.getTransaction().commit();
+        Airline toremove = entityManager.find(Airline.class, airline.getId());
+        if (toremove != null) {
+            entityManager.getTransaction().begin();
+            entityManager.remove(toremove);
+            entityManager.getTransaction().commit();
+        }
     }
 
     public Airline findOne(long id) {

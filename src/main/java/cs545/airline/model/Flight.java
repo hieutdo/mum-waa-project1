@@ -54,10 +54,10 @@ public class Flight {
         setDepartureTime(departureTime);
         setArrivalDate(arrivalDate);
         setArrivalTime(arrivalTime);
-        this.airline = airline;
-        this.origin = origin;
-        this.destination = destination;
-        this.airplane = airplane;
+        airline.addFlight(this);
+        origin.addDeparture(this);
+        destination.addArrival(this);
+        airplane.addFlight(this);
     }
 
     /* Getters & Setters */

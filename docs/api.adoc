@@ -437,40 +437,6 @@ __required__|integer
 * `application/json`
 
 
-[[_flights_post]]
-=== POST /flights
-
-==== Parameters
-
-[options="header", cols=".^2,.^3,.^4"]
-|===
-|Type|Name|Schema
-|**Body**|**body** +
-__required__|<<_flight,Flight>>
-|===
-
-
-==== Responses
-
-[options="header", cols=".^2,.^14,.^4"]
-|===
-|HTTP Code|Description|Schema
-|**201**|Created +
-**Headers** :  +
-`Location` (string)|<<_flight,Flight>>
-|===
-
-
-==== Consumes
-
-* `application/json`
-
-
-==== Produces
-
-* `application/json`
-
-
 [[_flights_get]]
 === GET /flights
 
@@ -522,33 +488,6 @@ __required__|<<_flight,Flight>>
 
 [[_flights_flightid_get]]
 === GET /flights/{flightId}
-
-==== Parameters
-
-[options="header", cols=".^2,.^3,.^4"]
-|===
-|Type|Name|Schema
-|**Path**|**flightId** +
-__required__|integer
-|===
-
-
-==== Responses
-
-[options="header", cols=".^2,.^14,.^4"]
-|===
-|HTTP Code|Description|Schema
-|**200**|OK|<<_flight,Flight>>
-|===
-
-
-==== Produces
-
-* `application/json`
-
-
-[[_flights_flightid_delete]]
-=== DELETE /flights/{flightId}
 
 ==== Parameters
 

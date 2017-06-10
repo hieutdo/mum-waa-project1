@@ -29,9 +29,12 @@ public class AirportDao {
     }
 
     public void delete(Airport airport) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(airport);
-        entityManager.getTransaction().commit();
+        Airport toremove = entityManager.find(Airport.class, airport.getId());
+        if (toremove != null) {
+            entityManager.getTransaction().begin();
+            entityManager.remove(toremove);
+            entityManager.getTransaction().commit();
+        }
     }
 
     public Airport findOne(long id) {
