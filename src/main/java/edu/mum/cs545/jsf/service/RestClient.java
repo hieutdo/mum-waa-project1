@@ -35,8 +35,7 @@ public class RestClient {
     }
 
     public List<Airline> getAirlines() {
-        WebTarget webTarget = restClient.target(API_BASE_URL)
-                .path("/airlines");
+        WebTarget webTarget = restClient.target(API_BASE_URL).path("/airlines");
         Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
         List<Airline> airlines = response.readEntity(new GenericType<List<Airline>>() {
         });
@@ -47,5 +46,11 @@ public class RestClient {
             }
         }
         return airlines;
+    }
+
+    public boolean deleteAirline(Airline airline) {
+        WebTarget webTarget = restClient.target(API_BASE_URL).path("/airlines/" + airline.getId());
+        Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
+        return response.getStatus() == 200;
     }
 }

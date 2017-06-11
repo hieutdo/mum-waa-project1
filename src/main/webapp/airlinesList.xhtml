@@ -4,19 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="content">
             <h:form>
-                <p:dataTable value="#{airlinesList.airlines}" var="airline" id="airlineTable">
-                    <f:facet name="header">
-                        AIRLINE LIST
-                    </f:facet>
-                    <p:column headerText="ID" width="50">
+                <p:growl id="message" showDetail="true" />
+                <p:dataTable var="airline" id="airlineTable" value="#{airlinesList.airlines}"
+                             selection="#{airlinesList.selectedAirlines}" rowKey="#{airline.id}">
+                    <p:column selectionMode="multiple" width="30" />
+                    <p:column headerText="ID" width="50" sortBy="#{airline.id}">
                         <h:outputText value="#{airline.id}" />
                     </p:column>
-                    <p:column headerText="Name" width="200">
+                    <p:column headerText="Name" width="200" sortBy="#{airline.name}">
                         <h:outputText value="#{airline.name}" />
                     </p:column>
                     <p:column headerText="Flights">
@@ -26,7 +25,8 @@
                                 <h:outputText value="#{flight.flightnr}" />
                             </p:column>
                             <p:column headerText="Origin - Destination" width="100">
-                                <h:outputText value="#{flight.origin.airportcode} - #{flight.destination.airportcode}" />
+                                <h:outputText
+                                        value="#{flight.origin.airportcode} - #{flight.destination.airportcode}" />
                             </p:column>
                             <p:column headerText="Departure">
                                 <h:outputText value="#{flight.departureDate} - #{flight.departureTime}" />
@@ -36,7 +36,19 @@
                             </p:column>
                         </p:dataTable>
                     </p:column>
+                    <p:column width="80" style="text-align: center">
+                        <p:commandButton icon="fa fa-edit" />
+                        <p:commandButton icon="fa fa-remove" actionListener="#{airlinesList.deleteAirline(airline)}"
+                                         update="airlineTable">
+                            <p:confirm header="Confirmation"
+                                       message="Are you sure you want to delete the airline #{airline.name}?" />
+                        </p:commandButton>
+                    </p:column>
                 </p:dataTable>
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
             </h:form>
         </ui:define>
     </ui:composition>
