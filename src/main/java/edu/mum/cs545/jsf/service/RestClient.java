@@ -1,5 +1,6 @@
 package edu.mum.cs545.jsf.service;
 
+import cs545.airline.model.Airline;
 import cs545.airline.model.Flight;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,11 +15,11 @@ import java.util.List;
 
 @Named
 @ApplicationScoped
-public class FlightRestClient {
+public class RestClient {
     private static final String API_BASE_URL = "http://localhost:8080/airlinesWebApp-0.0.1-SNAPSHOT/rs";
     private final Client restClient;
 
-    public FlightRestClient() {
+    public RestClient() {
         restClient = ClientBuilder.newClient();
     }
 
@@ -33,4 +34,18 @@ public class FlightRestClient {
         });
     }
 
+    public List<Airline> getAirlines() {
+        WebTarget webTarget = restClient.target(API_BASE_URL)
+                .path("/airlines");
+        Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
+        List<Airline> airlines = response.readEntity(new GenericType<List<Airline>>() {
+        });
+        for (Airline airline : airlines) {
+            List<Flight> flights = getFlights(airline.getName(), null, null);
+            for (Flight flight : flights) {
+                airline.addFlight(flight);
+            }
+        }
+        return airlines;
+    }
 }

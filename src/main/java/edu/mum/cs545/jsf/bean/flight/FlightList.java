@@ -1,7 +1,7 @@
 package edu.mum.cs545.jsf.bean.flight;
 
 import cs545.airline.model.Flight;
-import edu.mum.cs545.jsf.service.FlightRestClient;
+import edu.mum.cs545.jsf.service.RestClient;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class FlightList implements Serializable {
     @Inject
-    private FlightRestClient flightRestClient;
+    private RestClient restClient;
 
     private List<Flight> flights;
     private String airlineFilter;
@@ -27,7 +27,7 @@ public class FlightList implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.flights = flightRestClient.getFlights(this.airlineFilter, this.originAirportFilter, this.airlineFilter);
+        this.flights = restClient.getFlights(this.airlineFilter, this.originAirportFilter, this.airlineFilter);
     }
 
     public List<Flight> getFlights() {
@@ -59,7 +59,7 @@ public class FlightList implements Serializable {
     }
 
     public void filterListener() {
-        this.flights = flightRestClient.getFlights(this.airlineFilter, this.originAirportFilter, this.destinationAirportFilter);
+        this.flights = restClient.getFlights(this.airlineFilter, this.originAirportFilter, this.destinationAirportFilter);
     }
 
     public List<String> getAirlines() {
