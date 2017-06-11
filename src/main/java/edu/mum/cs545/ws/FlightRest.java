@@ -18,8 +18,10 @@ public class FlightRest {
     private FlightService flightService;
 
     @GET
-    public List<Flight> getFlights() {
-        return flightService.findAll();
+    public List<Flight> getFlights(@QueryParam("airlineName") String airlineName,
+                                   @QueryParam("originAirportName") String originAirportName,
+                                   @QueryParam("destinationAirportName") String destinationAirportName) {
+        return flightService.search(airlineName, originAirportName, destinationAirportName);
     }
 
     @GET

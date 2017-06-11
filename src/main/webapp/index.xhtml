@@ -7,11 +7,28 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Flight Management</title>
-        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="style.css" />
     </h:head>
     <h:body>
         <h:form>
-            <p:dataTable value="#{flightList.flights}" var="flight" widgetVar="flightTable">
+            <p:panel header="Filters" style="margin-bottom: 10px">
+                <h:selectOneMenu id="airlineFilter" value="#{flightList.airlineFilter}" style="margin-right: 20px">
+                    <f:ajax event="change" listener="#{flightList.filterListener()}" render="flightTable" />
+                    <f:selectItem itemLabel="All Airlines" itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems value="#{flightList.airlines}" />
+                </h:selectOneMenu>
+                <p:selectOneMenu id="originAirportFilter" value="#{flightList.originAirportFilter}" style="margin-right: 20px">
+                    <f:ajax event="change" listener="#{flightList.filterListener()}" render="flightTable" />
+                    <f:selectItem itemLabel="All Origin Airports" itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems value="#{flightList.originAirports}" />
+                </p:selectOneMenu>
+                <p:selectOneMenu id="destinationAirportFilter" value="#{flightList.destinationAirportFilter}" style="margin-right: 20px">
+                    <f:ajax event="change" listener="#{flightList.filterListener()}" render="flightTable" />
+                    <f:selectItem itemLabel="All Destination Airports" itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems value="#{flightList.destinationAirports}" />
+                </p:selectOneMenu>
+            </p:panel>
+            <p:dataTable value="#{flightList.flights}" var="flight" id="flightTable">
                 <f:facet name="header">
                     FLIGHT BOARD
                 </f:facet>

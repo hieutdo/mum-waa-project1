@@ -86,4 +86,8 @@ public class FlightService {
         return flightDao.findAll();
     }
 
+    public List<Flight> search(String airlineName, String originAirportName, String destinationAirportName) {
+        return flightDao.search(airlineName, originAirportName, destinationAirportName);
+    }
+
 }

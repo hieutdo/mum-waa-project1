@@ -8,6 +8,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -137,4 +138,52 @@ public class FlightDao {
         return entityManager.createQuery("select f from Flight f", Flight.class).getResultList();
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Flight> search(String airlineName, String originAirportName, String destinationAirportName) {
+        boolean hasAirlineName = airlineName != null && !airlineName.isEmpty();
+        boolean hasOriginAirportName = originAirportName != null && !originAirportName.isEmpty();
+        boolean hasDestinationAirportName = destinationAirportName != null && !destinationAirportName.isEmpty();
+        List<String> joinClauses = new ArrayList<>();
+        List<String> whereClauses = new ArrayList<>();
+        String sql = "select f from Flight f ";
+
+        if (hasAirlineName) {
+            joinClauses.add(" join f.airline a ");
+            whereClauses.add(" a.name=:airlineName ");
+        }
+
+        if (hasOriginAirportName) {
+            joinClauses.add(" join f.origin o ");
+            whereClauses.add(" o.name=:originAirportName ");
+        }
+
+        if (hasDestinationAirportName) {
+            joinClauses.add(" join f.destination d ");
+            whereClauses.add(" d.name=:destinationAirportName ");
+        }
+
+        if (joinClauses.size() > 0) {
+            sql += String.join(" ", joinClauses);
+        }
+
+        if (whereClauses.size() > 0) {
+            sql += " where " + String.join(" and ", whereClauses);
+        }
+
+        Query query = entityManager.createQuery(sql, Flight.class);
+
+        if (hasAirlineName) {
+            query.setParameter("airlineName", airlineName);
+        }
+
+        if (hasOriginAirportName) {
+            query.setParameter("originAirportName", originAirportName);
+        }
+
+        if (hasDestinationAirportName) {
+            query.setParameter("destinationAirportName", destinationAirportName);
+        }
+
+        return query.getResultList();
+    }
 }

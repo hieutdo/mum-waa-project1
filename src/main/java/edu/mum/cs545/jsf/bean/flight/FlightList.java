@@ -1,54 +1,84 @@
 package edu.mum.cs545.jsf.bean.flight;
 
 import cs545.airline.model.Flight;
+import edu.mum.cs545.jsf.service.FlightRestClient;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class FlightList implements Serializable {
-    private final Client jaxrsClient;
-    private final String baseUrl = "http://localhost:8080/airlinesWebApp-0.0.1-SNAPSHOT/rs";
+    @Inject
+    private FlightRestClient flightRestClient;
+
     private List<Flight> flights;
-    private List<Flight> filterFlights;
+    private String airlineFilter;
+    private String originAirportFilter;
+    private String destinationAirportFilter;
 
     public FlightList() {
-        jaxrsClient = ClientBuilder.newClient();
     }
 
     @PostConstruct
     public void init() {
-        WebTarget webTarget = jaxrsClient.target(baseUrl + "/flights");
-
-        // build the request (e.g. a GET request)
-        Invocation invocation = webTarget.request(MediaType.APPLICATION_JSON).buildGet();
-
-        // invoke the request
-        Response response = invocation.invoke();
-
-        this.flights = response.readEntity(new GenericType<List<Flight>>() {
-        });
+        this.flights = flightRestClient.getFlights(this.airlineFilter, this.originAirportFilter, this.airlineFilter);
     }
 
     public List<Flight> getFlights() {
         return flights;
     }
 
+    public String getAirlineFilter() {
+        return airlineFilter;
+    }
+
+    public void setAirlineFilter(String airlineFilter) {
+        this.airlineFilter = airlineFilter;
+    }
+
+    public String getOriginAirportFilter() {
+        return originAirportFilter;
+    }
+
+    public void setOriginAirportFilter(String originAirportFilter) {
+        this.originAirportFilter = originAirportFilter;
+    }
+
+    public String getDestinationAirportFilter() {
+        return destinationAirportFilter;
+    }
+
+    public void setDestinationAirportFilter(String destinationAirportFilter) {
+        this.destinationAirportFilter = destinationAirportFilter;
+    }
+
+    public void filterListener() {
+        this.flights = flightRestClient.getFlights(this.airlineFilter, this.originAirportFilter, this.destinationAirportFilter);
+    }
+
     public List<String> getAirlines() {
         return this.flights.stream()
                 .map(flight -> flight.getAirline().getName())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getOriginAirports() {
+        return this.flights.stream()
+                .map(flight -> flight.getOrigin().getName())
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getDestinationAirports() {
+        return this.flights.stream()
+                .map(flight -> flight.getDestination().getName())
                 .distinct()
                 .collect(Collectors.toList());
     }
