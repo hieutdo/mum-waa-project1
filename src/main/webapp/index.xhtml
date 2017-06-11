@@ -2,96 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Flight Management</title>
-        <h:outputStylesheet library="css" name="style.css" />
-    </h:head>
-    <h:body>
-        <h:form>
-            <p:panel header="Filters" style="margin-bottom: 10px">
-                <h:selectOneMenu id="airlineFilter" value="#{flightList.airlineFilter}" style="margin-right: 20px">
-                    <f:ajax event="change" listener="#{flightList.filterListener()}" render="flightTable" />
-                    <f:selectItem itemLabel="All Airlines" itemValue="#{null}" noSelectionOption="true" />
-                    <f:selectItems value="#{flightList.airlines}" />
-                </h:selectOneMenu>
-                <p:selectOneMenu id="originAirportFilter" value="#{flightList.originAirportFilter}" style="margin-right: 20px">
-                    <f:ajax event="change" listener="#{flightList.filterListener()}" render="flightTable" />
-                    <f:selectItem itemLabel="All Origin Airports" itemValue="#{null}" noSelectionOption="true" />
-                    <f:selectItems value="#{flightList.originAirports}" />
-                </p:selectOneMenu>
-                <p:selectOneMenu id="destinationAirportFilter" value="#{flightList.destinationAirportFilter}" style="margin-right: 20px">
-                    <f:ajax event="change" listener="#{flightList.filterListener()}" render="flightTable" />
-                    <f:selectItem itemLabel="All Destination Airports" itemValue="#{null}" noSelectionOption="true" />
-                    <f:selectItems value="#{flightList.destinationAirports}" />
-                </p:selectOneMenu>
-            </p:panel>
-            <p:dataTable value="#{flightList.flights}" var="flight" id="flightTable">
-                <f:facet name="header">
-                    FLIGHT BOARD
-                </f:facet>
-                <p:columnGroup type="header">
-                    <p:row>
-                        <p:column rowspan="2" headerText="Flight Number" />
-                        <p:column rowspan="2" headerText="Airline" />
-                        <p:column colspan="2" headerText="Departure" />
-                        <p:column colspan="2" headerText="Arrival" />
-                        <p:column colspan="2" headerText="Origin Airport" />
-                        <p:column colspan="2" headerText="Destination Airport" />
-                        <p:column colspan="2" headerText="Airplane" />
-                    </p:row>
-                    <p:row>
-                        <p:column headerText="Date" />
-                        <p:column headerText="Time" />
-                        <p:column headerText="Date" />
-                        <p:column headerText="Time" />
-                        <p:column headerText="Name" />
-                        <p:column headerText="Code" />
-                        <p:column headerText="Name" />
-                        <p:column headerText="Code" />
-                        <p:column headerText="Model" />
-                        <p:column headerText="Capacity" />
-                    </p:row>
-                </p:columnGroup>
-                <p:column>
-                    <h:outputText value="#{flight.flightnr}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.airline.name}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.departureDate}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.departureTime}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.arrivalDate}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.arrivalTime}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.origin.name}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.origin.airportcode}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.destination.name}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.destination.airportcode}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.airplane.model}" />
-                </p:column>
-                <p:column>
-                    <h:outputText value="#{flight.airplane.capacity}" />
-                </p:column>
-            </p:dataTable>
-        </h:form>
-    </h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <ui:include src="flights.xhtml" />
+        </ui:define>
+    </ui:composition>
 </html>
