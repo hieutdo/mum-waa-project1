@@ -51,10 +51,17 @@ public class AirlinesList implements Serializable {
     }
 
     public void deleteAirline(Airline airline) {
-        if (!restClient.deleteAirline(airline)) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to delete selected airline. Please try again later.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        FacesMessage message = new FacesMessage();
+        if (restClient.deleteAirline(airline)) {
+            message.setSummary("Success");
+            message.setDetail("Airline " + airline.getName() + " has been deleted successfully.");
+            message.setSeverity(FacesMessage.SEVERITY_INFO);
+        } else {
+            message.setSummary("Error");
+            message.setDetail("Failed to delete the airline " + airline.getName() + ". Please try again later.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
         }
+        FacesContext.getCurrentInstance().addMessage(null, message);
         reloadData();
     }
 }
