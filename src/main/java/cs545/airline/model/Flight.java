@@ -1,5 +1,7 @@
 package cs545.airline.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.util.Date;
@@ -20,6 +22,7 @@ public class Flight {
     @Temporal(TemporalType.TIME)
     private Date arrivalTime;
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonBackReference
     private Airline airline;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Airport origin;

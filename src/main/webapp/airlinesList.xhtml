@@ -42,10 +42,15 @@
                             </p:column>
                         </p:dataTable>
                     </p:column>
-                    <p:column width="80" style="text-align: center">
-                        <p:commandButton icon="fa fa-edit" />
-                        <p:commandButton icon="fa fa-remove" actionListener="#{airlinesList.deleteAirline(airline)}"
-                                         update="airlineTable :airlineForm:growl">
+                    <p:column width="80" style="text-align: center; vertical-align: top">
+                        <p:button outcome="airlineDetails"
+                                  includeViewParams="true"
+                                  icon="fa fa-edit">
+                            <f:param name="airlineId" value="#{airline.id}" />
+                        </p:button>
+                        <p:commandButton actionListener="#{airlinesList.deleteAirline(airline)}"
+                                         update="airlineTable :airlineForm:growl"
+                                         icon="fa fa-remove">
                             <p:confirm header="Confirmation"
                                        message="Are you sure you want to delete the airline #{airline.name}?" />
                         </p:commandButton>

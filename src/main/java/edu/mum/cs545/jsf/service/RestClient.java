@@ -1,12 +1,17 @@
 package edu.mum.cs545.jsf.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cs545.airline.model.Airline;
 import cs545.airline.model.Flight;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -52,5 +57,31 @@ public class RestClient {
         WebTarget webTarget = restClient.target(API_BASE_URL).path("/airlines/" + airline.getId());
         Response response = webTarget.request(MediaType.APPLICATION_JSON).delete();
         return response.getStatus() == 200;
+    }
+
+    public Airline getAirlineById(long id) {
+        WebTarget webTarget = restClient.target(API_BASE_URL).path("/airlines/" + id);
+        Response response = webTarget.request(MediaType.APPLICATION_JSON).get();
+        if (response.getStatus() != 200) {
+            throw new NotFoundException("Could not find airline with ID " + id);
+        }
+        return response.readEntity(Airline.class);
+    }
+
+    public void updateAirline(Airline airline) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(airline);
+            WebTarget webTarget = restClient.target(API_BASE_URL).path("/airlines");
+            Response response = webTarget
+                    .request(MediaType.APPLICATION_JSON)
+                    .put(Entity.json(json));
+            if (response.getStatus() != 200) {
+                throw new WebApplicationException("Could not update airline with ID " + airline.getId());
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            throw new WebApplicationException("Could not convert object to json", e);
+        }
     }
 }
