@@ -12,7 +12,7 @@
                 <p:growl id="growl" showDetail="true" />
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Create" icon="fa fa-plus" />
+                        <p:commandButton value="Create" icon="fa fa-plus" action="airlineCreate?faces-redirect=true" />
                     </f:facet>
                 </p:toolbar>
                 <p:dataTable var="airline" id="airlineTable" value="#{airlinesList.airlines}"
@@ -21,7 +21,7 @@
                     <p:column headerText="ID" width="50" sortBy="#{airline.id}">
                         <h:outputText value="#{airline.id}" />
                     </p:column>
-                    <p:column headerText="Name" width="200" sortBy="#{airline.name}">
+                    <p:column headerText="Name" width="150" sortBy="#{airline.name}">
                         <h:outputText value="#{airline.name}" />
                     </p:column>
                     <p:column headerText="Flights">

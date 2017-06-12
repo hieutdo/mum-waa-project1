@@ -39,7 +39,7 @@
                         </p:dataList>
                         <h:message for="airlineFlights" />
 
-                        <p:commandButton value="Save" actionListener="#{airlineDetails.save}" update="form growl" icon="fa fa-save" />
+                        <p:commandButton value="Save" action="#{airlineDetails.save}" update="form growl" icon="fa fa-save" />
                         <p:commandButton value="Cancel" immediate="true" action="airlinesList?faces-redirect=true" icon="fa fa-remove" />
                     </p:panelGrid>
                 </p:panel>

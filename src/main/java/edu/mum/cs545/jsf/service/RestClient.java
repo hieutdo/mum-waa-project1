@@ -9,10 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -68,15 +65,20 @@ public class RestClient {
         return response.readEntity(Airline.class);
     }
 
-    public void updateAirline(Airline airline) {
+    public void createOrUpdateAirline(Airline airline) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(airline);
             WebTarget webTarget = restClient.target(API_BASE_URL).path("/airlines");
-            Response response = webTarget
-                    .request(MediaType.APPLICATION_JSON)
-                    .put(Entity.json(json));
-            if (response.getStatus() != 200) {
+            Invocation.Builder request = webTarget.request(MediaType.APPLICATION_JSON);
+            Response response;
+            if (airline.getId() == 0) {
+                response = request.post(Entity.json(json));
+            } else {
+                response = request.put(Entity.json(json));
+            }
+            int status = response.getStatus();
+            if (status != 200 && status != 201) {
                 throw new WebApplicationException("Could not update airline with ID " + airline.getId());
             }
         } catch (JsonProcessingException e) {
